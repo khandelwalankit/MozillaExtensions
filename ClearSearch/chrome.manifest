@@ -1,0 +1,7 @@
+content  ClearSearch  content/
+
+overlay chrome://browser/content/preferences/privacy.xul chrome://ClearSearch/content/privacy.xul
+overlay chrome://browser/content/browser.xul chrome://ClearSearch/content/sample.xul
+
+
+

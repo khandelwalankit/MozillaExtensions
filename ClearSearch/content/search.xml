@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE bindings [
+<!ENTITY % searchBarDTD SYSTEM "chrome://browser/locale/searchbar.dtd" >
+%searchBarDTD;
+<!ENTITY % browserDTD SYSTEM "chrome://browser/locale/browser.dtd">
+%browserDTD;
+]>
+
+<bindings id="SearchBindings"
+          xmlns="http://www.mozilla.org/xbl"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+          xmlns:xbl="http://www.mozilla.org/xbl">
+
+<binding id="searchbar">
+    
+    <implementation implements="nsIObserver">
+      
+      <method name="doSearch">
+        <parameter name="aData"/>
+        <parameter name="aWhere"/>
+        <body><![CDATA[
+          // null parameter below specifies HTML response for search
+          var submission = this.currentEngine.getSubmission(aData);
+          BrowserSearch.recordSearchInHealthReport(this.currentEngine.name, "searchbar");
+          openUILinkIn(submission.uri.spec, aWhere, null, submission.postData);
+	   //Begin - Arul - 6/7/2013
+         val = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch).
+               getBoolPref("pref.privacy.clearsearch");
+         if(val)
+                 document.getAnonymousElementByAttribute(this,"anonid", "searchbar-textbox").reset();
+         //End - Arul - 6/7/2013
+        ]]></body>
+      </method>
+    </implementation>
+  
+  </binding>
+
+</bindings>
