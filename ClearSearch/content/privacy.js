@@ -10,7 +10,7 @@
        document.getElementById("pref.privacy.clearsearch").value=true;
     
     return document.getElementById("pref.privacy.clearsearch").value
-  },
+  }
 /*
 * Completed - Ankit
 */
